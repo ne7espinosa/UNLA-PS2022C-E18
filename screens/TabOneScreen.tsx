@@ -1,20 +1,26 @@
-import { Image, StyleSheet, FlatList } from 'react-native';
+import { Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { Productos } from '../modelos/Producto';
+import React from 'react';
+import ModalScreen from './ModalScreen';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Pedidos</Text>
       <FlatList data={Productos} renderItem={({ item }) =>
-        <View>
-          <Image source={{ uri: item.imagenURL }} key={item.id} style={styles.logo} />
-          <Text>{item.nombre}</Text>
-          <Text>{item.precio}</Text>
-        </View>
+        <TouchableOpacity onPress={ModalScreen}>
+          <View>
+            <Image source={{ uri: item.imagenURL }} key={item.id} style={styles.logo} />
+
+            <Text>{item.nombre}</Text>
+            <Text>{item.precio}</Text>
+            <Text>{item.id}</Text>
+          </View>
+        </TouchableOpacity>
       }>
       </FlatList>
       {/* <Image source={require('../assets/images/mcdonaldsicon.png')} style={styles.logo}/> */}

@@ -8,7 +8,7 @@ interface Producto {
 const Productos: Producto[] = [
     {
         id: 1,
-        nombre: "Combo 1",
+        nombre: "Combo Pepito",
         precio: "$1000",
         imagenURL: "https://i.ibb.co/xjXBn58/h-mcdonalds-Big-Mac-Extra-Value-Meals-1-4-product-tile-desktop.jpg"
     },
