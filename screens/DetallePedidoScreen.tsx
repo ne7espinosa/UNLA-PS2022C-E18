@@ -2,10 +2,14 @@ import { Alert, Button, Image, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import React, { useState } from 'react';
 import { Productos } from '../modelos/Producto';
+import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '../types';
+type DetallePedidoRouteProps = RouteProp<RootStackParamList, "DetallePedidoScreen">
+type DetallePedidoProps = { route: DetallePedidoRouteProps}
 
-export default function DetallePedidoScreen({ route }: { route: any }) {
+export default function DetallePedidoScreen(props: DetallePedidoProps) {
 
-    const { idProducto } = route.params;
+    const { idProducto } = props.route.params;
     const [cantidad, setCantidad] = useState(1);
 
     //Funcion sumar cantidad
@@ -14,7 +18,7 @@ export default function DetallePedidoScreen({ route }: { route: any }) {
             setCantidad(cantidad + 1)
         }
     }
-
+    
     //Funcion restar cantidad
     const restarCantidad = () => {
         if (cantidad > 1) {
