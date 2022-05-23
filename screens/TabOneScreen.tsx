@@ -1,24 +1,20 @@
 import { Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { Productos } from '../modelos/Producto';
 import React from 'react';
-import ModalScreen from './ModalScreen';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Pedidos</Text>
       <FlatList data={Productos} renderItem={({ item }) =>
-        <TouchableOpacity onPress={ModalScreen}>
+        <TouchableOpacity onPress={() => navigation.navigate('DetallePedidoScreen', { idProducto: item.id })}>
           <View>
             <Image source={{ uri: item.imagenURL }} key={item.id} style={styles.logo} />
-
             <Text>{item.nombre}</Text>
             <Text>{item.precio}</Text>
-            <Text>{item.id}</Text>
           </View>
         </TouchableOpacity>
       }>
