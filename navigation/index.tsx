@@ -75,7 +75,7 @@ function BottomTabNavigator() {
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           headerTitle: '',
-          tabBarLabel: 'Pedido',
+          tabBarLabel: 'Pedidos',
           tabBarIcon: ({ color }) => <Ionicons name="ios-fast-food-outline" color={color} size={30} />,
           headerRight: () => (
             <Pressable
@@ -98,8 +98,10 @@ function BottomTabNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerTitle: '',
+          title: 'Mi pedido',
+          tabBarIcon: ({ color }) => <Ionicons name="icon" color={color} size={30} />,
+          
         }}
       />
     </BottomTab.Navigator>
