@@ -18,11 +18,10 @@ export default function TabTwoScreen() {
           ?
           <FlatList data={productos} renderItem={({ item }) =>
             <View>
-              
-              <col><Image source={{ uri: item.imagenURL }} key={item.id} style={styles.muestra} /></col>
-              <col><Text style={styles.nombre}>{item.nombre}</Text>
+              <Image source={{ uri: item.imagenURL }} key={item.id} style={styles.muestra} />
+              <Text style={styles.nombre}>{item.nombre}</Text>
               <Text style={styles.nombre}>{item.precio}</Text>
-              <Text style={styles.nombre}>{item.cantidad}</Text></col>
+              <Text style={styles.nombre}>{item.cantidad}</Text>
             </View>
           }>
           </FlatList>
