@@ -1,17 +1,20 @@
 import { Alert, Button, Image, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
-import React, { useState } from 'react';
-import { Productos } from '../modelos/Producto';
+import React, { useContext, useState } from 'react';
+import { Producto, Productos } from '../modelos/Producto';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types';
+import { PedidoContext } from '../contexts/pedidoContext';
 type DetallePedidoRouteProps = RouteProp<RootStackParamList, "DetallePedidoScreen">
 type DetallePedidoProps = { route: DetallePedidoRouteProps}
 
 export default function DetallePedidoScreen(props: DetallePedidoProps) {
 
+    const pedidoContext = useContext(PedidoContext);
     const { idProducto } = props.route.params;
     const [cantidad, setCantidad] = useState(1);
 
+    
     //Funcion sumar cantidad
     const sumarCantidad = () => {
         if (cantidad < 5) {
@@ -26,15 +29,19 @@ export default function DetallePedidoScreen(props: DetallePedidoProps) {
         }
     }
 
-    var producto = Productos.find(e => e.id == idProducto);
+    const producto = Productos.find(e => e.id == idProducto) as Producto;
+    
+    const agregar = (producto: Producto) => {
+        pedidoContext.agregarProducto(producto);
+    }
 
     return (
 
         <View style={styles.container}>
             <Text style={styles.title}>{producto?.nombre}</Text>
-            <Text>{producto?.precio}</Text>
-            <Image source={{ uri: producto?.imagenURL }} key={producto?.id} style={styles.imagen} />
-            <Text> {producto?.detalle} </Text>
+            <Text>{producto.precio}</Text>
+            <Image source={{ uri: producto?.imagenURL }} key={producto.id} style={styles.imagen} />
+            <Text> {producto.detalle} </Text>
             <View style={styles.buttonsCantidad}>
                 <View style={styles.buttonMenos}>
                     <Button title='-' onPress={restarCantidad} />
@@ -45,7 +52,7 @@ export default function DetallePedidoScreen(props: DetallePedidoProps) {
                 </View>
             </View>
             <View style={styles.buttonConfirmar}>
-                <Button color={'#F2A30F'} title='Añadir al Pedido' onPress={() => Alert.alert('')}></Button>
+                <Button color={'#F2A30F'} title='Añadir al Pedido' onPress={() => agregar(producto)}></Button>
             </View>
         </View>
 

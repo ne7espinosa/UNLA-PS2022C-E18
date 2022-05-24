@@ -19,6 +19,8 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import DetallePedidoScreen from '../screens/DetallePedidoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import { Producto } from '../modelos/Producto';
+import { PedidoContext } from '../contexts/pedidoContext';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -56,9 +58,13 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
+  
+
+
   const colorScheme = useColorScheme();
 
   return (
+
     <BottomTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
@@ -97,6 +103,7 @@ function BottomTabNavigator() {
         }}
       />
     </BottomTab.Navigator>
+
   );
 }
 
