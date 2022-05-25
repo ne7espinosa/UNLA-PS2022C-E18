@@ -27,8 +27,8 @@ export default function TabTwoScreen() {
           </FlatList>
           :
           <View>
-            <Text style={styles.nombre}>Aún no has hecho ningún pedido</Text>
-            <Text style={styles.nombre}>Desde aquí podrás seguir el estado de tu pedido.</Text>
+            <Text style={styles.advertencia}>Aún no has hecho ningún pedido</Text>
+            <Text style={styles.advertencia}>Desde aquí podrás seguir el estado de tu pedido.</Text>
           </View>
       }
       
@@ -48,9 +48,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  advertencia:{
+    fontSize: 15,
+    textAlign: 'center'
+  },
   nombre:{
     fontSize: 15,
-    textAlign: 'right'
+    textAlign: 'left'
   },
   separator: {
     marginVertical: 30,
