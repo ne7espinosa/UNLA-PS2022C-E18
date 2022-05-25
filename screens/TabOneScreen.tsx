@@ -19,7 +19,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         </TouchableOpacity>
       }>
       </FlatList>
-      {/* <Image source={require('../assets/images/mcdonaldsicon.png')} style={styles.logo}/> */}
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
     </View>

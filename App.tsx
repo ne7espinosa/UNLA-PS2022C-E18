@@ -12,18 +12,25 @@ export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
+  //productos del pedido
   const [productos, setProductos] = useState<Producto[]>([]);
 
-  const agregarProducto = (producto: Producto) => {
+  const agregarProducto = (producto: Producto, cantidad: number) => {
+    producto.cantidad = cantidad;
     setProductos([...productos, producto]);
   }
 
+  const yaSeAgregoAlPedido = (producto: Producto): boolean => {
+    const buscarProducto = productos.filter(element => element.id == producto.id)[0];
+    // buscarProducto ? true : false;
+    if(buscarProducto) {return true;} else {return false;}
+  }
 
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <PedidoContext.Provider value={{ productos, agregarProducto }}>
+      <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido }}>
         <SafeAreaProvider>
 
           <Navigation colorScheme={colorScheme} />

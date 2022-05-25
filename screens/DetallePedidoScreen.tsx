@@ -6,7 +6,7 @@ import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../types';
 import { PedidoContext } from '../contexts/pedidoContext';
 type DetallePedidoRouteProps = RouteProp<RootStackParamList, "DetallePedidoScreen">
-type DetallePedidoProps = { route: DetallePedidoRouteProps}
+type DetallePedidoProps = { route: DetallePedidoRouteProps }
 
 export default function DetallePedidoScreen(props: DetallePedidoProps) {
 
@@ -14,14 +14,14 @@ export default function DetallePedidoScreen(props: DetallePedidoProps) {
     const { idProducto } = props.route.params;
     const [cantidad, setCantidad] = useState(1);
 
-    
+
     //Funcion sumar cantidad
     const sumarCantidad = () => {
         if (cantidad < 5) {
             setCantidad(cantidad + 1)
         }
     }
-    
+
     //Funcion restar cantidad
     const restarCantidad = () => {
         if (cantidad > 1) {
@@ -30,9 +30,28 @@ export default function DetallePedidoScreen(props: DetallePedidoProps) {
     }
 
     const producto = Productos.find(e => e.id == idProducto) as Producto;
-    
+
     const agregar = (producto: Producto) => {
-        pedidoContext.agregarProducto(producto);
+        //buscarProducto es para ver si el producto ya fue agregado al pedido
+        let existeProducto = pedidoContext.yaSeAgregoAlPedido(producto);
+        if (existeProducto) {
+            setTimeout(() => {
+                Alert.alert(
+                    "Este Producto ya existe en tu pedido",
+                    "Ya tenes agregado este producto a tu pedido",
+                    [
+                        { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ],
+                    {cancelable: true}
+                )
+                
+            }, 1)
+
+        }
+        else {
+            pedidoContext.agregarProducto(producto, cantidad);
+        }
+
     }
 
     return (
