@@ -3,6 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
+
 import { FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
@@ -75,7 +76,7 @@ function BottomTabNavigator() {
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           headerTitle: '',
-          tabBarLabel: 'Pedido',
+          tabBarLabel: 'Pedidos',
           tabBarIcon: ({ color }) => <Ionicons name="ios-fast-food-outline" color={color} size={30} />,
           headerRight: () => (
             <Pressable
@@ -98,8 +99,10 @@ function BottomTabNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerTitle: '',
+          title: 'Mi pedido',
+          tabBarIcon: ({ color }) => <Ionicons name="cart-outline" size={30} color={color} />,
+          
         }}
       />
     </BottomTab.Navigator>
