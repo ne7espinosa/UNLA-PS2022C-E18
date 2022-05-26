@@ -8,5 +8,6 @@ export const PedidoContext = createContext({
     agregarProducto: (_producto: Producto, _cantidad: number) => {},
     yaSeAgregoAlPedido: (_producto: Producto): boolean => {
         return false;
-    }
+    },
+    eliminarProducto: (_idProducto: number) => {},
 });

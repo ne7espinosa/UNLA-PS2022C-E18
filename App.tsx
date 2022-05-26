@@ -26,11 +26,17 @@ export default function App() {
     if(buscarProducto) {return true;} else {return false;}
   }
 
+  const eliminarProducto = (idProducto: number) => {
+    const listaProductoNueva = productos.filter((element) =>
+    element.id !== idProducto);
+    setProductos(listaProductoNueva);
+  }
+
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido }}>
+      <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido, eliminarProducto }}>
         <SafeAreaProvider>
 
           <Navigation colorScheme={colorScheme} />
