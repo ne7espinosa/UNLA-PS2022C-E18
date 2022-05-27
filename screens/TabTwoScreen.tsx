@@ -5,6 +5,7 @@ import { Text, View } from '../components/Themed';
 import { PedidoContext } from '../contexts/pedidoContext';
 import { Productos } from '../modelos/Producto';
 import navigation from '../navigation';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function TabTwoScreen() {
   const pedidoContext = useContext(PedidoContext);
@@ -21,12 +22,13 @@ export default function TabTwoScreen() {
         pedidoContext.productos.length > 0
           ?
           <FlatList data={productos} renderItem={({ item }) =>
-            <View>
+            <View style= {styles.boxPrincipal}>
               <Image source={{ uri: item.imagenURL }} key={item.id} style={styles.muestra} />
-              <Text style={styles.nombre}>{item.nombre}</Text>
+              <Text style={[styles.nombre, { width:150}]}>{item.nombre}</Text>
               <Text style={styles.nombre}>{item.precio}</Text>
+              
+              <MaterialIcons name="delete" size={24} color='grey' onPress={() => eliminar(item.id)} />
               <Text style={styles.nombre}>{item.cantidad}</Text>
-              <Button title='Eliminar' onPress={() => eliminar(item.id)} />
             </View>
           }>
           </FlatList>
@@ -49,6 +51,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  boxPrincipal:{
+    flex:1,
+    flexDirection: 'row',
+    flexWrap:'wrap',
+    padding:10,
+  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -58,8 +66,8 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   nombre: {
-    fontSize: 15,
-    textAlign: 'left'
+    fontSize: 10,
+    marginVertical: 30,
   },
   separator: {
     marginVertical: 30,
@@ -73,4 +81,5 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
     borderRadius: 25,
   },
+  
 });

@@ -7,6 +7,7 @@ import { RootStackParamList } from '../types';
 import { PedidoContext } from '../contexts/pedidoContext';
 type DetallePedidoRouteProps = RouteProp<RootStackParamList, "DetallePedidoScreen">
 type DetallePedidoProps = { route: DetallePedidoRouteProps }
+import { AntDesign } from '@expo/vector-icons';
 
 export default function DetallePedidoScreen(props: DetallePedidoProps) {
 
@@ -63,11 +64,12 @@ export default function DetallePedidoScreen(props: DetallePedidoProps) {
             <Text> {producto.detalle} </Text>
             <View style={styles.buttonsCantidad}>
                 <View style={styles.buttonMenos}>
-                    <Button title='-' onPress={restarCantidad} />
+                    <AntDesign name="minus" size={20} color="grey" onPress={restarCantidad} />            
                 </View>
                 <Text style={styles.textoCantidad}>{cantidad}</Text>
                 <View style={styles.buttonMas}>
-                    <Button title='+' onPress={sumarCantidad} />
+                    <AntDesign name="plus" size={20} color="grey" onPress={sumarCantidad}/>
+                    
                 </View>
             </View>
             <View style={styles.buttonConfirmar}>
@@ -97,16 +99,25 @@ const styles = StyleSheet.create({
     buttonsCantidad: {
         flexDirection: "row",
         justifyContent: 'space-evenly',
-        marginTop: 20,
+        marginTop: 50,
+        borderColor:'black'
     },
     buttonMenos: {
-        right: 5
+        marginHorizontal: 10 ,
+        padding: 4,
+        alignContent: 'space-between',
     },
     buttonMas: {
-        left: 5
+        marginLeft: 10 ,
+
+        padding: 4,
+        alignContent: 'space-between',
+
     },
     textoCantidad: {
-        marginTop: 4
+        marginBottom:7,
+        padding: 3,
+        alignContent: 'space-between',
     },
     buttonConfirmar: {
         right: 10,
