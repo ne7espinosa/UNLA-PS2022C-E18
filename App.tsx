@@ -22,7 +22,6 @@ export default function App() {
 
   const yaSeAgregoAlPedido = (producto: Producto): boolean => {
     const buscarProducto = productos.filter(element => element.id == producto.id)[0];
-    // buscarProducto ? true : false;
     if(buscarProducto) {return true;} else {return false;}
   }
 
@@ -32,11 +31,21 @@ export default function App() {
     setProductos(listaProductoNueva);
   }
 
+  const modificarCantidad = (idProducto: number, cantidad: number) => {
+    const productosNuevos = productos.map(item => {
+      if (item.id === idProducto) {
+        return {...item, cantidad: cantidad};
+      }
+      return item;
+    });
+    setProductos(productosNuevos);
+  }
+
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido, eliminarProducto }}>
+      <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido, eliminarProducto, modificarCantidad }}>
         <SafeAreaProvider>
 
           <Navigation colorScheme={colorScheme} />

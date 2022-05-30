@@ -3,9 +3,8 @@ import { Image, FlatList, StyleSheet, Button } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { PedidoContext } from '../contexts/pedidoContext';
-import { Productos } from '../modelos/Producto';
-import navigation from '../navigation';
-import { MaterialIcons } from '@expo/vector-icons';
+import { Producto } from '../modelos/Producto';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 
 export default function TabTwoScreen() {
   const pedidoContext = useContext(PedidoContext);
@@ -15,6 +14,18 @@ export default function TabTwoScreen() {
     pedidoContext.eliminarProducto(idProducto);
   }
 
+  const modificarCantidad = (producto: Producto) => {
+    if (producto.cantidad < 5) {
+      let cantidadNueva = producto.cantidad + 1;
+      pedidoContext.modificarCantidad(producto.id, cantidadNueva);
+    }
+  }
+
+  //Funcion sumar cantidad
+  const sumarCantidad = (producto: Producto) => {
+    modificarCantidad(producto);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Mis Pedidos</Text>
@@ -22,14 +33,17 @@ export default function TabTwoScreen() {
         pedidoContext.productos.length > 0
           ?
           <FlatList data={productos} renderItem={({ item }) =>
-            <View style= {styles.boxPrincipal}>
+            <View style={styles.boxPrincipal}>
               <Image source={{ uri: item.imagenURL }} key={item.id} style={styles.muestra} />
-              <Text style={[styles.nombre, { width:150}]}>{item.nombre}</Text>
+              <Text style={[styles.nombre, { width: 150 }]}>{item.nombre}</Text>
               <Text style={styles.nombre}>{item.precio}</Text>
-              
-              <MaterialIcons name="delete" size={24} color='grey' onPress={() => eliminar(item.id)} />
-              <Text style={styles.nombre}>{item.cantidad}</Text>
+              <View style={styles.botones}>
+                <MaterialIcons name="delete" size={24} color='grey' onPress={() => eliminar(item.id)} />
+                <Text style={styles.cantidad}>{item.cantidad}</Text>
+                <AntDesign name="plus" size={20} color="grey" onPress={() => sumarCantidad(item)} />
+              </View>
             </View>
+
           }>
           </FlatList>
           :
@@ -51,11 +65,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  boxPrincipal:{
-    flex:1,
+  boxPrincipal: {
+    flex: 1,
     flexDirection: 'row',
-    flexWrap:'wrap',
-    padding:10,
+    flexWrap: 'wrap',
+    padding: 10,
   },
   title: {
     fontSize: 20,
@@ -81,5 +95,15 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
     borderRadius: 25,
   },
-  
+  botones:{
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 40
+  },
+  cantidad: {
+    fontSize: 12,
+    right: 20,
+    left: 20
+  }
+
 });
