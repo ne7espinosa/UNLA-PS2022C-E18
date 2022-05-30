@@ -3,14 +3,12 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-
-import { FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
-
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
@@ -20,8 +18,7 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import DetallePedidoScreen from '../screens/DetallePedidoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
-import { Producto } from '../modelos/Producto';
-import { PedidoContext } from '../contexts/pedidoContext';
+
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -102,7 +99,6 @@ function BottomTabNavigator() {
           headerTitle: '',
           title: 'Mi pedido',
           tabBarIcon: ({ color }) => <Ionicons name="cart-outline" size={30} color={color} />,
-          
         }}
       />
     </BottomTab.Navigator>

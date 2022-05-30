@@ -2,9 +2,11 @@ import { Alert, Button, Image, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import React, { useContext, useState } from 'react';
 import { Producto, Productos } from '../modelos/Producto';
-import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../types';
+import { NavigationProp, RouteProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList, RootStackScreenProps } from '../types';
 import { PedidoContext } from '../contexts/pedidoContext';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 type DetallePedidoRouteProps = RouteProp<RootStackParamList, "DetallePedidoScreen">
 type DetallePedidoProps = { route: DetallePedidoRouteProps }
 
@@ -13,7 +15,7 @@ export default function DetallePedidoScreen(props: DetallePedidoProps) {
     const pedidoContext = useContext(PedidoContext);
     const { idProducto } = props.route.params;
     const [cantidad, setCantidad] = useState(1);
-
+    const navigation = useNavigation();
 
     //Funcion sumar cantidad
     const sumarCantidad = () => {
@@ -46,12 +48,11 @@ export default function DetallePedidoScreen(props: DetallePedidoProps) {
                 )
                 
             }, 1)
-
         }
         else {
             pedidoContext.agregarProducto(producto, cantidad);
+            navigation.goBack();
         }
-
     }
 
     return (
