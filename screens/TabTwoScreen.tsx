@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Image, FlatList, StyleSheet, Button } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Image, FlatList, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { PedidoContext } from '../contexts/pedidoContext';
@@ -9,21 +9,25 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 export default function TabTwoScreen() {
   const pedidoContext = useContext(PedidoContext);
   const productos = pedidoContext.productos;
+  // const precioTotal = [precioTotal, setPrecioTotal] = useState(0);
+  const [precioTotal, setPrecioTotal] = useState<number>(0);
 
   const eliminar = (idProducto: number) => {
     pedidoContext.eliminarProducto(idProducto);
   }
 
-  const modificarCantidad = (producto: Producto) => {
+  const modificarProducto = (producto: Producto) => {
+    //modifica cantidad y precio
     if (producto.cantidad < 5) {
-      let cantidadNueva = producto.cantidad + 1;
-      pedidoContext.modificarCantidad(producto.id, cantidadNueva);
+      producto.cantidad = producto.cantidad + 1;
+      producto.precioTotal = producto.cantidad * producto.precio;
+      pedidoContext.modificarProducto(producto);
     }
   }
 
   //Funcion sumar cantidad
   const sumarCantidad = (producto: Producto) => {
-    modificarCantidad(producto);
+    modificarProducto(producto);
   }
 
   return (
@@ -36,14 +40,13 @@ export default function TabTwoScreen() {
             <View style={styles.boxPrincipal}>
               <Image source={{ uri: item.imagenURL }} key={item.id} style={styles.muestra} />
               <Text style={[styles.nombre, { width: 150 }]}>{item.nombre}</Text>
-              <Text style={styles.nombre}>{item.precio}</Text>
+              <Text style={styles.nombre}>${item.precio}</Text>
               <View style={styles.botones}>
                 <MaterialIcons name="delete" size={24} color='grey' onPress={() => eliminar(item.id)} />
                 <Text style={styles.cantidad}>{item.cantidad}</Text>
                 <AntDesign name="plus" size={20} color="grey" onPress={() => sumarCantidad(item)} />
               </View>
             </View>
-
           }>
           </FlatList>
           :
@@ -51,8 +54,24 @@ export default function TabTwoScreen() {
             <Text style={styles.advertencia}>Aún no has hecho ningún pedido</Text>
             <Text style={styles.advertencia}>Desde aquí podrás seguir el estado de tu pedido.</Text>
           </View>
-      }
 
+      }
+      {
+        pedidoContext.productos.length > 0 ?
+          <View>
+            <Text style={styles.precioTotal}>Total: ${productos.reduce((sumar, item) => sumar + item.precioTotal, 0)} </Text>
+            <View style={styles.botonesFinal}>
+              <TouchableOpacity onPress={() => []} style={styles.buttonContenedorSP}>
+                <View style={styles.buttonSeguirPidiendo}>
+                  <Text style={styles.buttonSeguirPidiendoText}>Seguir Pidiendo</Text>
+                </View>
+              </TouchableOpacity>
+              <Button color={'#F2A30F'} title='Pagar con la App' onPress={() => []}></Button>
+            </View>
+          </View>
+          :
+          <View></View>
+      }
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
     </View>
@@ -95,7 +114,7 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
     borderRadius: 25,
   },
-  botones:{
+  botones: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginTop: 40
@@ -103,7 +122,31 @@ const styles = StyleSheet.create({
   cantidad: {
     fontSize: 12,
     right: 20,
-    left: 20
+    left: 1
+  },
+  botonesFinal: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  buttonContenedorSP: {
+    width: 135,
+    height: 35
+  },
+  buttonSeguirPidiendo: {
+    backgroundColor: '#ffffff',
+    width: 135,
+    height: 35
+  },
+  buttonSeguirPidiendoText:
+  {
+    marginTop: 7,
+    textAlign: 'center',
+    color: 'black',
+  },
+  precioTotal:
+  {
+    fontSize: 20,
+    marginBottom: 5
   }
 
 });

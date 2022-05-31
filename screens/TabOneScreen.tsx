@@ -14,7 +14,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           <View>
             <Image source={{ uri: item.imagenURL }} key={item.id} style={styles.logo} />
             <Text>{item.nombre}</Text>
-            <Text>{item.precio}</Text>
+            <Text>${item.precio}</Text>
           </View>
         </TouchableOpacity>
       }>

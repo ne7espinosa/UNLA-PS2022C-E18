@@ -10,5 +10,5 @@ export const PedidoContext = createContext({
         return false;
     },
     eliminarProducto: (_idProducto: number) => {},
-    modificarCantidad: (_idProducto: number, _cantidad: number) => {}
+    modificarProducto: (_producto: Producto) => {},
 });

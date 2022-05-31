@@ -17,6 +17,7 @@ export default function App() {
 
   const agregarProducto = (producto: Producto, cantidad: number) => {
     producto.cantidad = cantidad;
+    producto.precioTotal = producto.precio * cantidad;
     setProductos([...productos, producto]);
   }
 
@@ -31,21 +32,25 @@ export default function App() {
     setProductos(listaProductoNueva);
   }
 
-  const modificarCantidad = (idProducto: number, cantidad: number) => {
+  const modificarProducto = (producto: Producto) => {
     const productosNuevos = productos.map(item => {
-      if (item.id === idProducto) {
-        return {...item, cantidad: cantidad};
+      if (item.id === producto.id) {
+        return {...item, cantidad: producto.cantidad, precio: producto.precio};
       }
       return item;
     });
     setProductos(productosNuevos);
   }
 
+  // const calcularTotal = () => {
+  //   (productos.reduce((sumar, item) => sumar + item.precioTotal, 0));
+  // }
+
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido, eliminarProducto, modificarCantidad }}>
+      <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido, eliminarProducto, modificarProducto }}>
         <SafeAreaProvider>
 
           <Navigation colorScheme={colorScheme} />
