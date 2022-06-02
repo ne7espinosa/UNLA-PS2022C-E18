@@ -18,6 +18,8 @@ export default function PedidoScreen(props: PedidoProps) {
   // const precioTotal = [precioTotal, setPrecioTotal] = useState(0);
   const [precioTotal, setPrecioTotal] = useState<number>(0);
 
+  const navigation = useNavigation();
+  
   return (
 
     <View style={styles.container}>
@@ -50,8 +52,9 @@ export default function PedidoScreen(props: PedidoProps) {
 
             <Text style={styles.subtitulo}>Total: ${productos.reduce((sumar, item) => sumar + item.precioTotal, 0)} </Text>
 
-                <Button color={'#F2A30F'} title='Pagar' onPress={() =>{}}></Button>
+                <Button color={'#F2A30F'} title='Pagar' onPress={() => navigation.navigate('DatosPersonalesScreen')}></Button>
                 </View>
+                
 
       </View>
     
