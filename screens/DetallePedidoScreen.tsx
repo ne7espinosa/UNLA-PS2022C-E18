@@ -60,7 +60,7 @@ export default function DetallePedidoScreen(props: DetallePedidoProps) {
 
         <View style={styles.container}>
             <Text style={styles.title}>{producto?.nombre}</Text>
-            <Text>{producto.precio}</Text>
+            <Text>${producto.precio}</Text>
             <Image source={{ uri: producto?.imagenURL }} key={producto.id} style={styles.imagen} />
             <Text> {producto.detalle} </Text>
             <View style={styles.buttonsCantidad}>
