@@ -19,6 +19,7 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
   const handleChangeText = (name: string, value: string) => {
     setState({ ...state, [name]: value })
   }
+  const navigation = useNavigation();
 
 
   return (
@@ -54,7 +55,7 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
         />
       </View>
       <View style={styles.buttonConfirmar}>
-        <Button color={'#F2A30F'} title='Continuar' onPress={() => { }} />
+        <Button color={'#F2A30F'} title='Continuar' onPress={() => navigation.navigate('DatosTarjetaScreen')} />
       </View>
     </View>
 
