@@ -80,6 +80,8 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           headerTitle: '',
           tabBarLabel: 'Pedidos',
+          tabBarActiveTintColor: '#F4D03F',
+          tabBarInactiveTintColor: '#A6ACAF',
           tabBarIcon: ({ color }) => <Ionicons name="ios-fast-food-outline" color={color} size={30} />,
           headerRight: () => (
             <Pressable
@@ -104,6 +106,8 @@ function BottomTabNavigator() {
         options={{
           headerTitle: '',
           title: 'Mi pedido',
+          tabBarActiveTintColor: '#F4D03F',
+          tabBarInactiveTintColor: '#A6ACAF',
           tabBarIcon: ({ color }) => <Ionicons name="cart-outline" size={30} color={color} />,
         }}
       />
