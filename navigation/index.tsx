@@ -23,7 +23,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import OfertasScreen from '../screens/OfertasScreen';
 import DetalleOfertaScreen from '../screens/DetalleOfertaScreen';
-
+import RestaurantesScreen from '../screens/RestaurantesScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -122,7 +122,18 @@ function BottomTabNavigator() {
           title: 'Ofertas',
           tabBarActiveTintColor: '#F4D03F',
           tabBarInactiveTintColor: '#A6ACAF',
-          tabBarIcon: ({ color }) => <Ionicons name="cart-outline" size={30} color={color} />,
+          tabBarIcon: ({ color }) => <Ionicons name="pricetag-outline" size={30} color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Restaurantes"
+        component={RestaurantesScreen}
+        options={{
+          headerTitle: '',
+          title: 'Restaurantes',
+          tabBarActiveTintColor: '#F4D03F',
+          tabBarInactiveTintColor: '#A6ACAF',
+          tabBarIcon: ({ color }) => <Ionicons name="location-outline" size={30} color={color} />,
         }}
       />
     </BottomTab.Navigator>
