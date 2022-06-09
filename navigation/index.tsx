@@ -21,6 +21,8 @@ import DatosPersonalesScreen from '../screens/DatosPersonalesScreen';
 import DatosTarjetaScreen from '../screens/DatosTarjetaScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import OfertasScreen from '../screens/OfertasScreen';
+import DetalleOfertaScreen from '../screens/DetalleOfertaScreen';
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -44,10 +46,11 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Screen name="DetallePedidoScreen" component={DetallePedidoScreen} options={{ title: ''}} />
-      <Stack.Screen name="PedidoScreen" component={PedidoScreen} options={{ title: ''}} />
-      <Stack.Screen name="DatosPersonalesScreen" component={DatosPersonalesScreen} options={{ title: ''}} />
-      <Stack.Screen name="DatosTarjetaScreen" component={DatosTarjetaScreen} options={{ title: ''}} />
+      <Stack.Screen name="DetallePedidoScreen" component={DetallePedidoScreen} options={{ title: '' }} />
+      <Stack.Screen name="PedidoScreen" component={PedidoScreen} options={{ title: '' }} />
+      <Stack.Screen name="DatosPersonalesScreen" component={DatosPersonalesScreen} options={{ title: '' }} />
+      <Stack.Screen name="DatosTarjetaScreen" component={DatosTarjetaScreen} options={{ title: '' }} />
+      <Stack.Screen name="DetalleOfertaScreen" component={DetalleOfertaScreen} options={{ title: '' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
@@ -62,7 +65,7 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
-  
+
 
 
   const colorScheme = useColorScheme();
@@ -106,6 +109,17 @@ function BottomTabNavigator() {
         options={{
           headerTitle: '',
           title: 'Mi pedido',
+          tabBarActiveTintColor: '#F4D03F',
+          tabBarInactiveTintColor: '#A6ACAF',
+          tabBarIcon: ({ color }) => <Ionicons name="cart-outline" size={30} color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Ofertas"
+        component={OfertasScreen}
+        options={{
+          headerTitle: '',
+          title: 'Ofertas',
           tabBarActiveTintColor: '#F4D03F',
           tabBarInactiveTintColor: '#A6ACAF',
           tabBarIcon: ({ color }) => <Ionicons name="cart-outline" size={30} color={color} />,

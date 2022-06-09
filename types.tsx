@@ -21,6 +21,7 @@ export type RootStackParamList = {
   PedidoScreen: undefined;
   DatosPersonalesScreen: undefined;
   DatosTarjetaScreen: undefined;
+  DetalleOfertaScreen: { idOferta: number };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -31,6 +32,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 export type RootTabParamList = {
   TabOne: undefined;
   TabTwo: undefined;
+  Ofertas: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
