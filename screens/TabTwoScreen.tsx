@@ -19,8 +19,11 @@ export default function TabTwoScreen() {
     pedidoContext.eliminarProducto(idProducto);
   }
 
-  const modificarProducto = (producto: Producto) => {
-    //modifica cantidad y precio
+  
+  
+
+  //Funcion sumar cantidad
+  const sumarCantidad = (producto: Producto) => {
     if (producto.cantidad < 5) {
       producto.cantidad = producto.cantidad + 1;
       producto.precioTotal = producto.cantidad * producto.precio;
@@ -28,11 +31,15 @@ export default function TabTwoScreen() {
     }
   }
 
-  //Funcion sumar cantidad
-  const sumarCantidad = (producto: Producto) => {
-    modificarProducto(producto);
+  const restarCantidad = (producto: Producto ) => {
+    if(producto.cantidad > 1){
+    producto.cantidad = producto.cantidad - 1;
+    producto.precioTotal = producto.cantidad * producto.precio;
+    pedidoContext.modificarProducto(producto);
+    } else {
+      eliminar(producto.id)
+    }
   }
-
   const navigation = useNavigation();
 
 
@@ -48,9 +55,10 @@ export default function TabTwoScreen() {
               <Text style={[styles.nombre, { width: 150 }]}>{item.nombre}</Text>
               <Text style={styles.nombre}>${item.precio}</Text>
               <View style={styles.botones}>
-                <MaterialIcons name="delete" size={24} color='grey' onPress={() => eliminar(item.id)} />
-                <Text style={styles.cantidad}>{item.cantidad}</Text>
-                <AntDesign name="plus" size={20} color="grey" onPress={() => sumarCantidad(item)} />
+
+              <AntDesign name="minus" size={20} color="grey" onPress={() => restarCantidad(item)} />
+              <Text style={styles.cantidad}>{item.cantidad}</Text>
+              <AntDesign name="plus" size={20} color="grey" onPress={() => sumarCantidad(item)} />
               </View>
             </View>
           }>
@@ -165,3 +173,7 @@ const styles = StyleSheet.create({
   }
 
 });
+function item(item: any): void {
+  throw new Error('Function not implemented.');
+}
+
