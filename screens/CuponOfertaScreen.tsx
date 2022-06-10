@@ -5,13 +5,14 @@ import { Producto, Productos } from '../modelos/Producto';
 import { NavigationProp, RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList, RootStackScreenProps } from '../types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import QRCode from 'react-native-qrcode-svg';
 
-type DetalleOfertaRouteProps = RouteProp<RootStackParamList, "DetalleOfertaScreen">
-type DetalleOfertaProps = { route: DetalleOfertaRouteProps }
+type CuponOfertaRouteProps = RouteProp<RootStackParamList, "CuponOfertaScreen">
+type CuponOfertaProps = { route: CuponOfertaRouteProps }
 
-import { Oferta, Ofertas } from '../modelos/Oferta';
+import { Ofertas } from '../modelos/Oferta';
 
-export default function DetalleOfertaScreen(props: DetalleOfertaProps) {
+export default function CuponOfertaScreen(props: CuponOfertaProps) {
 
     const { idOferta } = props.route.params;
 
@@ -19,15 +20,19 @@ export default function DetalleOfertaScreen(props: DetalleOfertaProps) {
 
     const oferta = Ofertas.find(e => e.id == idOferta) as Producto;
 
+    function Simple() {
+        return <QRCode value="http://mcdonalds.com.ar" size={200}/>;
+    }
+
     return (
 
         <View style={styles.container}>
-            <Image source={{ uri: oferta.imagenURL }} key={oferta.id} style={styles.imagen} />
-            <Text>${oferta.precio}</Text>
-
-            <View style={styles.buttonConfirmar}>
-                <Button color={'#F2A30F'} title='Obtener cupón' onPress={() => navigation.navigate('CuponOfertaScreen', {idOferta})}></Button>
+            {/* <Image source={{ uri: oferta.imagenURL }} key={oferta.id} style={styles.imagen} /> */}
+            <Text>{oferta.nombre}</Text>
+            <View>
+                <Simple />
             </View>
+
         </View>
 
 
@@ -38,6 +43,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        marginTop: 10
     },
     title: {
         fontSize: 20,
@@ -77,5 +83,10 @@ const styles = StyleSheet.create({
         left: 10,
         position: 'absolute',
         bottom: 10,
-    }
+    },
+    // qrCode: {
+    //     height: 500,
+    //     width: 500,
+    //     alignItems: 'center',
+    // }
 });

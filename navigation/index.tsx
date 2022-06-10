@@ -24,6 +24,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import OfertasScreen from '../screens/OfertasScreen';
 import DetalleOfertaScreen from '../screens/DetalleOfertaScreen';
 import RestaurantesScreen from '../screens/RestaurantesScreen';
+import CuponOfertaScreen from '../screens/CuponOfertaScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -51,6 +52,7 @@ function RootNavigator() {
       <Stack.Screen name="DatosPersonalesScreen" component={DatosPersonalesScreen} options={{ title: '' }} />
       <Stack.Screen name="DatosTarjetaScreen" component={DatosTarjetaScreen} options={{ title: '' }} />
       <Stack.Screen name="DetalleOfertaScreen" component={DetalleOfertaScreen} options={{ title: '' }} />
+      <Stack.Screen name="CuponOfertaScreen" component={CuponOfertaScreen} options={{ title: '' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
@@ -86,21 +88,6 @@ function BottomTabNavigator() {
           tabBarActiveTintColor: '#F4D03F',
           tabBarInactiveTintColor: '#A6ACAF',
           tabBarIcon: ({ color }) => <Ionicons name="ios-fast-food-outline" color={color} size={30} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-
         })}
       />
       <BottomTab.Screen
