@@ -10,7 +10,7 @@ import QRCode from 'react-native-qrcode-svg';
 type CuponOfertaRouteProps = RouteProp<RootStackParamList, "CuponOfertaScreen">
 type CuponOfertaProps = { route: CuponOfertaRouteProps }
 
-import { Ofertas } from '../modelos/Oferta';
+import { Oferta, Ofertas } from '../modelos/Oferta';
 
 export default function CuponOfertaScreen(props: CuponOfertaProps) {
 
@@ -18,7 +18,7 @@ export default function CuponOfertaScreen(props: CuponOfertaProps) {
 
     const navigation = useNavigation();
 
-    const oferta = Ofertas.find(e => e.id == idOferta) as Producto;
+    const oferta = Ofertas.find(e => e.id == idOferta) as Oferta;
 
     function Simple() {
         return <QRCode value="http://mcdonalds.com.ar" size={200}/>;
@@ -32,7 +32,7 @@ export default function CuponOfertaScreen(props: CuponOfertaProps) {
             <View>
                 <Simple />
             </View>
-
+            <Text>{oferta.codigoRetiro}</Text>
         </View>
 
 

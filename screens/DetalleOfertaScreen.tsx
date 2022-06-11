@@ -10,6 +10,7 @@ type DetalleOfertaRouteProps = RouteProp<RootStackParamList, "DetalleOfertaScree
 type DetalleOfertaProps = { route: DetalleOfertaRouteProps }
 
 import { Oferta, Ofertas } from '../modelos/Oferta';
+import { CuponContext } from '../contexts/cuponesContext';
 
 export default function DetalleOfertaScreen(props: DetalleOfertaProps) {
 
@@ -17,7 +18,14 @@ export default function DetalleOfertaScreen(props: DetalleOfertaProps) {
 
     const navigation = useNavigation();
 
-    const oferta = Ofertas.find(e => e.id == idOferta) as Producto;
+    const cuponContext = useContext(CuponContext);
+
+    const oferta = Ofertas.find(e => e.id == idOferta) as Oferta;
+
+    const generarCupon = (oferta: Oferta) => {
+        cuponContext.agregarCupon(oferta);
+        navigation.navigate("CuponOfertaScreen", { idOferta: oferta.id })
+    }
 
     return (
 
@@ -26,7 +34,7 @@ export default function DetalleOfertaScreen(props: DetalleOfertaProps) {
             <Text>${oferta.precio}</Text>
 
             <View style={styles.buttonConfirmar}>
-                <Button color={'#F2A30F'} title='Obtener cupón' onPress={() => navigation.navigate('CuponOfertaScreen', {idOferta})}></Button>
+                <Button color={'#F2A30F'} title='Obtener cupón' onPress={() => generarCupon(oferta)}></Button>
             </View>
         </View>
 

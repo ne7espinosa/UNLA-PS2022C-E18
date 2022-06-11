@@ -1,7 +1,7 @@
 import { createContext } from 'react';
-import { Cupon } from '../modelos/Cupon';
+import { Oferta } from '../modelos/Oferta';
 
 export const CuponContext = createContext({
-    cupones: Array<Cupon>(),
-    cuponUtilizado: (_cupon: Cupon) => {},
+    ofertas: Array<Oferta>(),
+    agregarCupon: (_oferta: Oferta) => {},
 });

@@ -2,18 +2,20 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PedidoContext } from './contexts/pedidoContext';
-
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
+import { Oferta } from './modelos/Oferta';
 import { Producto } from './modelos/Producto';
 import Navigation from './navigation';
-
+import { CuponContext } from './contexts/cuponesContext';
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
   //productos del pedido
   const [productos, setProductos] = useState<Producto[]>([]);
+  //cupones/ofertas del pedido
+  const [ofertas, setOfertas] = useState<Oferta[]>([]);
 
   const agregarProducto = (producto: Producto, cantidad: number) => {
     producto.cantidad = cantidad;
@@ -42,21 +44,24 @@ export default function App() {
     setProductos(productosNuevos);
   }
 
-  // const calcularTotal = () => {
-  //   (productos.reduce((sumar, item) => sumar + item.precioTotal, 0));
-  // }
+  const agregarCupon = (oferta: Oferta) => {
+    oferta.seActivoCupon = true;
+    setOfertas([...ofertas, oferta]);
+  }
 
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
       <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido, eliminarProducto, modificarProducto }}>
+        <CuponContext.Provider value={{ ofertas, agregarCupon}}>
         <SafeAreaProvider>
 
           <Navigation colorScheme={colorScheme} />
           <StatusBar />
 
         </SafeAreaProvider>
+        </CuponContext.Provider>
       </PedidoContext.Provider>
     );
   }

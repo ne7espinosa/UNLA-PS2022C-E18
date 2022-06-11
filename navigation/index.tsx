@@ -25,6 +25,7 @@ import OfertasScreen from '../screens/OfertasScreen';
 import DetalleOfertaScreen from '../screens/DetalleOfertaScreen';
 import RestaurantesScreen from '../screens/RestaurantesScreen';
 import CuponOfertaScreen from '../screens/CuponOfertaScreen';
+import CuponesActivosScreen from '../screens/CuponesActivosScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -87,7 +88,7 @@ function BottomTabNavigator() {
           tabBarLabel: 'Pedidos',
           tabBarActiveTintColor: '#F4D03F',
           tabBarInactiveTintColor: '#A6ACAF',
-          tabBarIcon: ({ color }) => <Ionicons name="ios-fast-food-outline" color={color} size={30} />,
+          tabBarIcon: ({ color }) => <Ionicons name="ios-fast-food-outline" color={color} size={25} />,
         })}
       />
       <BottomTab.Screen
@@ -98,7 +99,7 @@ function BottomTabNavigator() {
           title: 'Mi pedido',
           tabBarActiveTintColor: '#F4D03F',
           tabBarInactiveTintColor: '#A6ACAF',
-          tabBarIcon: ({ color }) => <Ionicons name="cart-outline" size={30} color={color} />,
+          tabBarIcon: ({ color }) => <Ionicons name="cart-outline" size={25} color={color} />,
         }}
       />
       <BottomTab.Screen
@@ -109,7 +110,7 @@ function BottomTabNavigator() {
           title: 'Ofertas',
           tabBarActiveTintColor: '#F4D03F',
           tabBarInactiveTintColor: '#A6ACAF',
-          tabBarIcon: ({ color }) => <Ionicons name="pricetag-outline" size={30} color={color} />,
+          tabBarIcon: ({ color }) => <Ionicons name="pricetag-outline" size={25} color={color} />,
         }}
       />
       <BottomTab.Screen
@@ -120,7 +121,18 @@ function BottomTabNavigator() {
           title: 'Restaurantes',
           tabBarActiveTintColor: '#F4D03F',
           tabBarInactiveTintColor: '#A6ACAF',
-          tabBarIcon: ({ color }) => <Ionicons name="location-outline" size={30} color={color} />,
+          tabBarIcon: ({ color }) => <Ionicons name="location-outline" size={25} color={color} />,
+        }}
+      />
+            <BottomTab.Screen
+        name="CuponesActivos"
+        component={CuponesActivosScreen}
+        options={{
+          headerTitle: '',
+          title: 'Mis Cupones',
+          tabBarActiveTintColor: '#F4D03F',
+          tabBarInactiveTintColor: '#A6ACAF',
+          tabBarIcon: ({ color }) => <Ionicons name="md-list-outline" size={25} color={color} />,
         }}
       />
     </BottomTab.Navigator>
