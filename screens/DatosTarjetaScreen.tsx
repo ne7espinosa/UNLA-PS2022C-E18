@@ -7,10 +7,7 @@ import { PedidoContext } from '../contexts/pedidoContext';
 import { RootStackParamList } from '../types';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { Card } from 'react-native-paper';
-
-
-
-
+import { FormItem } from 'react-native-form-component';
 
 type DatosTarjetaRouteProps = RouteProp<RootStackParamList, "DatosTarjetaScreen">
 type DatosTarjetaProps = { route: DatosTarjetaRouteProps }
@@ -25,6 +22,7 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
   const [expiration, setExpiration] = useState('');
   const [cvv, setCvv] = useState('');
 
+
   return (
 
     <View style={styles.container}>
@@ -36,29 +34,28 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
             <Text style={styles.pagoTarjeta}> <Ionicons name="card-outline" size={24} color="white" />Nueva tarjeta <AntDesign name="checkcircle" size={24} color={'#F2A30F'} /></Text>
             <Card>
               <SafeAreaView style={styles.containertarjeta}>
-                  <View style={styles.inputGroup}>
-                    <TextInput 
-                      placeholder="*Numero de la tarjeta"
+                   <FormItem 
+                      asterik
+                      label="Numero de la tarjeta"
+                      isRequired  
                       value={cardNumber}
-                      onChangeText={(text) => setCardNumber(text)}
+                      onChangeText={(cardNumber) => setCardNumber(cardNumber)}
+                      
                     />
-                  </View>
-                    
-                  <View style={styles.inputGroup}>
-                  <TextInput 
-                    placeholder="*MM/*YY"
-                    value={expiration}
-                    onChangeText={(text) => setExpiration(text)}
-                  />
-                  </View>
-                  <View style={styles.inputGroup}>
-                  <TextInput 
-                    placeholder="*CVV"
-                    value={cvv}
-                    onChangeText={(text) => setCvv(text)}
-                  />
-                  </View>
-
+                    <FormItem 
+                      asterik
+                      label="MM/YY"
+                      isRequired
+                      value={expiration}
+                      onChangeText={(expiration) => setExpiration(expiration)}
+                    />
+                    <FormItem 
+                      asterik
+                      label="CVV"
+                      isRequired
+                      value={cvv}
+                      onChangeText={(cvv) => setCvv(cvv)}
+                     />
               </SafeAreaView>
             </Card>
           </View>
@@ -128,13 +125,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 36
   },
-  inputGroup: {
-    flex: 1,
-    padding: 0,
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
-    alignContent: 'space-between',
-    backgroundColor: '#ecf0f1'
-  }
+
 });

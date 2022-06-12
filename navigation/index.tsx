@@ -85,6 +85,7 @@ function BottomTabNavigator() {
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           headerTitle: '',
+          title: 'Pedidos',
           tabBarLabel: 'Pedidos',
           tabBarActiveTintColor: '#F4D03F',
           tabBarInactiveTintColor: '#A6ACAF',
