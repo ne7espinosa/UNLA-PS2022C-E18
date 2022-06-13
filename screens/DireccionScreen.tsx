@@ -1,29 +1,53 @@
-import { Image, StyleSheet, FlatList,Button } from 'react-native';
+import { Image, StyleSheet, FlatList,Button, Dimensions,StatusBar, ScrollView } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import React from 'react';
 import { Restaurantes } from '../modelos/Restaurante';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import SelectDropdown from 'react-native-select-dropdown';
+import { FontAwesome } from '@expo/vector-icons';
+const {width} = Dimensions.get('window');
+
 
 export default function DireccionScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Seleccione Local:</Text>
-               <FlatList  data={Restaurantes} renderItem={({ item }) =>
-                    <View style={styles.restaurante} >
-                        <Text>{item.nombre}</Text>
-                        <Text>{item.direccion}</Text>
-                        <Text>Horario de atención: {item.horarioAtencionDesde} a {item.horarioAtencionHasta}</Text>
-                        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-                    </View>
-                }>           
-                </FlatList>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-            <Button color={'#F2A30F'} title='Continuar'  onPress={() => {}} ></Button>
-        </View>
-
+            <Text style={styles.title}>Seleccione un local:</Text>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    alwaysBounceVertical={false}
+                    contentContainerStyle={styles.scrollViewContainer}>
+                    <SelectDropdown
+                        data={Restaurantes}
+                        defaultButtonText={'Search'}
+                        onSelect={(selectedItem, index) => {
+                            console.log(selectedItem, index)
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                            // text represented after item is selected
+                            // if data array is an array of objects then return selectedItem.property to render after item is selected
+                            return selectedItem.nombre
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            // text represented for each item in dropdown
+                            // if data array is an array of objects then return item.property to represent item in dropdown
+                            return item.nombre
+                        }}
+                        search
+                        searchInputStyle={styles.dropdown3searchInputStyleStyle}
+                        searchPlaceHolder={'Search'}
+                        searchPlaceHolderColor={'#F8F8F8'}
+                        renderSearchInputLeftIcon={() => {
+                        return <FontAwesome name={'search'} color={'#FFF'} size={18} />;
+                }}
+                    />
+                    
+                            </ScrollView>
+                <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+                <Button color={'#F2A30F'} title='Continuar'  onPress={() => {}} ></Button>
+            </View>
     );
 }
 
@@ -53,13 +77,16 @@ const styles = StyleSheet.create({
         fontSize: 10,
         marginTop: 10,
     },
-    item: {
-      backgroundColor: "#f9c2ff",
-      padding: 20,
-      marginVertical: 8
-    },
-    header: {
-      fontSize: 32,
-      backgroundColor: "#fff"
-    },
+    scrollViewContainer: {
+        flexGrow: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: '10%',
+        paddingBottom: '20%',
+      },
+      dropdown3searchInputStyleStyle: {
+        backgroundColor: 'slategray',
+        borderBottomWidth: 1,
+        borderBottomColor: '#FFF',
+      }
 });
