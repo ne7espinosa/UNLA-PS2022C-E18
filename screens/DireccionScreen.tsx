@@ -7,10 +7,12 @@ import { Restaurantes } from '../modelos/Restaurante';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SelectDropdown from 'react-native-select-dropdown';
 import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 const {width} = Dimensions.get('window');
 
 
 export default function DireccionScreen() {
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
@@ -46,7 +48,7 @@ export default function DireccionScreen() {
                     
                             </ScrollView>
                 <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-                <Button color={'#F2A30F'} title='Continuar'  onPress={() => {}} ></Button>
+                <Button color={'#F2A30F'} title='Continuar'  onPress={() => navigation.navigate('PedidoFinalizadoScreen')} ></Button>
             </View>
     );
 }

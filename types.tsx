@@ -24,6 +24,7 @@ export type RootStackParamList = {
   DetalleOfertaScreen: { idOferta: number };
   CuponOfertaScreen: { idOferta: number};
   DireccionScreen: undefined;
+  PedidoFinalizadoScreen:undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

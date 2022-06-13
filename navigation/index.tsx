@@ -27,6 +27,7 @@ import RestaurantesScreen from '../screens/RestaurantesScreen';
 import CuponOfertaScreen from '../screens/CuponOfertaScreen';
 import CuponesActivosScreen from '../screens/CuponesActivosScreen';
 import DireccionScreen from '../screens/DireccionScreen';
+import PedidoFinalizadoScreen from '../screens/PedidoFinalizadoScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -56,6 +57,7 @@ function RootNavigator() {
       <Stack.Screen name="DetalleOfertaScreen" component={DetalleOfertaScreen} options={{ title: '' }} />
       <Stack.Screen name="CuponOfertaScreen" component={CuponOfertaScreen} options={{ title: '' }} />
       <Stack.Screen name="DireccionScreen" component={DireccionScreen} options={{ title: '' }} />
+      <Stack.Screen name="PedidoFinalizadoScreen" component={PedidoFinalizadoScreen} options={{ title: '' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
       <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
