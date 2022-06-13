@@ -70,7 +70,7 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
       <View style={styles.buttonConfirmar}>
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
         <EditScreenInfo path="/screens/PedidoScreen.tsx" />
-        <Button color={'#F2A30F'} title='Pagar'  onPress={() =>{}}></Button>
+        <Button color={'#F2A30F'} title='Pagar'  onPress={() => navigation.navigate('DireccionScreen')} ></Button>
       </View>
     </View>
   
