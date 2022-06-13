@@ -8,6 +8,8 @@ import { Oferta } from './modelos/Oferta';
 import { Producto } from './modelos/Producto';
 import Navigation from './navigation';
 import { CuponContext } from './contexts/cuponesContext';
+import { DatosPersonales } from './modelos/DatosPersonales';
+import { DatosPersonalesContext } from './contexts/datosPersonales';
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -16,6 +18,8 @@ export default function App() {
   const [productos, setProductos] = useState<Producto[]>([]);
   //cupones/ofertas del pedido
   const [ofertas, setOfertas] = useState<Oferta[]>([]);
+  //datos personales
+  const [datos, setDatos] = useState<DatosPersonales[]>([]);
 
   const agregarProducto = (producto: Producto, cantidad: number) => {
     producto.cantidad = cantidad;
@@ -25,19 +29,19 @@ export default function App() {
 
   const yaSeAgregoAlPedido = (producto: Producto): boolean => {
     const buscarProducto = productos.filter(element => element.id == producto.id)[0];
-    if(buscarProducto) {return true;} else {return false;}
+    if (buscarProducto) { return true; } else { return false; }
   }
 
   const eliminarProducto = (idProducto: number) => {
     const listaProductoNueva = productos.filter((element) =>
-    element.id !== idProducto);
+      element.id !== idProducto);
     setProductos(listaProductoNueva);
   }
 
   const modificarProducto = (producto: Producto) => {
     const productosNuevos = productos.map(item => {
       if (item.id === producto.id) {
-        return {...item, cantidad: producto.cantidad, precio: producto.precio};
+        return { ...item, cantidad: producto.cantidad, precio: producto.precio };
       }
       return item;
     });
@@ -49,18 +53,22 @@ export default function App() {
     setOfertas([...ofertas, oferta]);
   }
 
+  const agregarDatosPersonales = (datosPersonales: DatosPersonales) => {
+    setDatos([...datos, datosPersonales])
+  }
+
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
       <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido, eliminarProducto, modificarProducto }}>
-        <CuponContext.Provider value={{ ofertas, agregarCupon}}>
-        <SafeAreaProvider>
-
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
-
-        </SafeAreaProvider>
+        <CuponContext.Provider value={{ ofertas, agregarCupon }}>
+          <DatosPersonalesContext.Provider value={{ agregarDatosPersonales }}>
+            <SafeAreaProvider>
+              <Navigation colorScheme={colorScheme} />
+              <StatusBar />
+            </SafeAreaProvider>
+          </DatosPersonalesContext.Provider>
         </CuponContext.Provider>
       </PedidoContext.Provider>
     );

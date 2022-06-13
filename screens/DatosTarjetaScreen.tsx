@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Button,SafeAreaView} from 'react-native';
+import { StyleSheet, Button, SafeAreaView } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View,TextInput} from '../components/Themed';
+import { Text, View, TextInput } from '../components/Themed';
 import { PedidoContext } from '../contexts/pedidoContext';
 import { RootStackParamList } from '../types';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
@@ -21,6 +21,33 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
   const [cardNumber, setCardNumber] = useState('');
   const [expiration, setExpiration] = useState('');
   const [cvv, setCvv] = useState('');
+  const [customValidacionNumero, setValidacionNumero] = useState({status: false, message: "Campo obligatorio"});
+  const [customValidacionExpiracion, setValidacionExpiracion] = useState({status: false, message: "Campo obligatorio"});
+  const [customValidacionCVV, setValidacionCVV] = useState({status: false, message: "Campo obligatorio"});
+
+  const setearNumero = (cardNumber: string) => {
+    if (cardNumber && cardNumber != '') {
+      customValidacionNumero.status = true;
+      setValidacionNumero(customValidacionNumero);
+      setCardNumber(cardNumber);
+    }
+  }
+
+  const setearExpiracion = (expiration: string) => {
+    if (expiration && expiration != '') {
+      customValidacionExpiracion.status = true;
+      setValidacionExpiracion(customValidacionExpiracion);
+      setExpiration(expiration);
+    }
+  }
+
+  const setearCVV = (cvv: string) => {
+    if (cvv && cvv != '') {
+      customValidacionCVV.status = true;
+      setValidacionCVV(customValidacionCVV);
+      setCvv(cvv);
+    }
+  }
 
 
   return (
@@ -34,35 +61,38 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
             <Text style={styles.pagoTarjeta}> <Ionicons name="card-outline" size={24} color="white" />Nueva tarjeta <AntDesign name="checkcircle" size={24} color={'#F2A30F'} /></Text>
             <Card>
               <SafeAreaView style={styles.containertarjeta}>
-                   <FormItem 
-                      asterik
-                      label="Numero de la tarjeta"
-                      isRequired  
-                      value={cardNumber}
-                      onChangeText={(cardNumber) => setCardNumber(cardNumber)}
-                      
-                    />
-                    <FormItem 
-                      asterik
-                      label="MM/YY"
-                      isRequired
-                      value={expiration}
-                      onChangeText={(expiration) => setExpiration(expiration)}
-                    />
-                    <FormItem 
-                      asterik
-                      label="CVV"
-                      isRequired
-                      value={cvv}
-                      onChangeText={(cvv) => setCvv(cvv)}
-                     />
+                <FormItem
+                  asterik
+                  label="Numero de la tarjeta"
+                  isRequired
+                  value={cardNumber}
+                  onChangeText={(cardNumber) => setearNumero(cardNumber)}
+                  customValidation={() => customValidacionNumero}
+
+                />
+                <FormItem
+                  asterik
+                  label="MM/YY"
+                  isRequired
+                  value={expiration}
+                  onChangeText={(expiration) => setearExpiracion(expiration)}
+                  customValidation={() => customValidacionExpiracion}
+                />
+                <FormItem
+                  asterik
+                  label="CVV"
+                  isRequired
+                  value={cvv}
+                  onChangeText={(cvv) => setearCVV(cvv)}
+                  customValidation={() => customValidacionCVV}
+                />
               </SafeAreaView>
             </Card>
           </View>
           :
           <View>
 
-            
+
           </View>
 
       }
@@ -70,12 +100,12 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
       <View style={styles.buttonConfirmar}>
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
         <EditScreenInfo path="/screens/PedidoScreen.tsx" />
-        <Button color={'#F2A30F'} title='Pagar'  onPress={() => navigation.navigate('DireccionScreen')} ></Button>
+        <Button color={'#F2A30F'} title='Pagar' onPress={() => navigation.navigate('DireccionScreen')} ></Button>
       </View>
     </View>
-  
+
   );
-    
+
 }
 
 const styles = StyleSheet.create({
