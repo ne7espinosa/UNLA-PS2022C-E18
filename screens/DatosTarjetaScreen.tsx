@@ -8,9 +8,12 @@ import { RootStackParamList } from '../types';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { Card } from 'react-native-paper';
 import { FormItem } from 'react-native-form-component';
+import { TextField } from 'react-native-material-textfield';
+
 
 type DatosTarjetaRouteProps = RouteProp<RootStackParamList, "DatosTarjetaScreen">
 type DatosTarjetaProps = { route: DatosTarjetaRouteProps }
+
 
 export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
   const pedidoContext = useContext(PedidoContext);
@@ -59,36 +62,41 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
             <Text style={styles.subtitulo}>Total: ${productos.reduce((sumar, item) => sumar + item.precioTotal, 0)} </Text>
             <Text style={styles.subtitulo}>Método de pago</Text>
             <Text style={styles.pagoTarjeta}> <Ionicons name="card-outline" size={24} color="white" />Nueva tarjeta <AntDesign name="checkcircle" size={24} color={'#F2A30F'} /></Text>
-            <Card>
-              <SafeAreaView style={styles.containertarjeta}>
+            <View style={styles.containertarjeta}>
                 <FormItem
                   asterik
-                  label="Numero de la tarjeta"
+                  placeholder="Numero de la tarjeta"
                   isRequired
                   value={cardNumber}
+                  maxLength={16}
                   onChangeText={(cardNumber) => setearNumero(cardNumber)}
                   customValidation={() => customValidacionNumero}
 
                 />
-                <FormItem
+            
+                <FormItem 
                   asterik
-                  label="MM/YY"
+                  placeholder="MM/YY"
                   isRequired
                   value={expiration}
+                  maxLength={4}
                   onChangeText={(expiration) => setearExpiracion(expiration)}
                   customValidation={() => customValidacionExpiracion}
                 />
+                
                 <FormItem
                   asterik
-                  label="CVV"
+                  placeholder="CVV"
                   isRequired
                   value={cvv}
+                  maxLength={3}
                   onChangeText={(cvv) => setearCVV(cvv)}
                   customValidation={() => customValidacionCVV}
                 />
-              </SafeAreaView>
-            </Card>
-          </View>
+                                </View>
+
+                </View>
+
           :
           <View>
 
@@ -98,8 +106,6 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
       }
 
       <View style={styles.buttonConfirmar}>
-        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-        <EditScreenInfo path="/screens/PedidoScreen.tsx" />
         <Button color={'#F2A30F'} title='Pagar' onPress={() => navigation.navigate('DireccionScreen')} ></Button>
       </View>
     </View>
@@ -114,12 +120,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   containertarjeta: {
-    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
     backgroundColor: '#ecf0f1',
   },
+
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -149,11 +157,6 @@ const styles = StyleSheet.create({
     left: 10,
     position: 'absolute',
     bottom: 10,
-  },
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    marginBottom: 36
-  },
+  }
 
 });
