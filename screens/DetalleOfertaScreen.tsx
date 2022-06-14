@@ -23,8 +23,26 @@ export default function DetalleOfertaScreen(props: DetalleOfertaProps) {
     const oferta = Ofertas.find(e => e.id == idOferta) as Oferta;
 
     const generarCupon = (oferta: Oferta) => {
-        cuponContext.agregarCupon(oferta);
-        navigation.navigate("CuponOfertaScreen", { idOferta: oferta.id })
+        if(oferta.seActivoCupon)
+        {
+            setTimeout(() => {
+                Alert.alert(
+                    "Ya tienes un cupón activo",
+                    "Ya utilizaste un cupón para esta oferta",
+                    [
+                        { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ],
+                    {cancelable: true}
+                )
+                
+            }, 1)
+        }
+        else
+        {
+            cuponContext.agregarCupon(oferta);
+            navigation.navigate("CuponOfertaScreen", { idOferta: oferta.id })
+        }
+
     }
 
     return (

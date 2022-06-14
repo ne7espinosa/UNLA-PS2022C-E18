@@ -48,6 +48,10 @@ export default function App() {
     setProductos(productosNuevos);
   }
 
+  const limpiarPedido = () => {
+    setProductos([]);
+  }
+
   const agregarCupon = (oferta: Oferta) => {
     oferta.seActivoCupon = true;
     setOfertas([...ofertas, oferta]);
@@ -61,7 +65,7 @@ export default function App() {
     return null;
   } else {
     return (
-      <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido, eliminarProducto, modificarProducto }}>
+      <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido, eliminarProducto, modificarProducto, limpiarPedido }}>
         <CuponContext.Provider value={{ ofertas, agregarCupon }}>
           <DatosPersonalesContext.Provider value={{ datosUsuario, agregarDatosPersonales }}>
             <SafeAreaProvider>

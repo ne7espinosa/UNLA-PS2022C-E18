@@ -101,7 +101,7 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
             <Text style={styles.subtitulo}>Método de pago</Text>
             <Text style={styles.pagoTarjeta}> <Ionicons name="card-outline" size={24} color="white" />Nueva tarjeta <AntDesign name="checkcircle" size={24} color={'#F2A30F'} /></Text>
             <View style={styles.containertarjeta}>
-            <Form onButtonPress={() => submit()} buttonText="Continuar" buttonStyle={styles.buttonConfirmar}>
+            <SafeAreaView>
                 <FormItem
                   asterik
                   placeholder="Numero de la tarjeta"
@@ -111,14 +111,8 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
                   onChangeText={(cardNumber) => setearNumero(cardNumber)}
                   customValidation={() => customValidacionNumero}
                 />
-                <View style={styles.row}>
+
                 <FormItem
-                  style={[
-                    styles.textField,
-                    {
-                      marginRight: 24,
-                    },
-                  ]}
                   asterik
                   placeholder="MM/YY"
                   isRequired
@@ -129,7 +123,6 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
                 />
 
                 <FormItem
-                  style={styles.textField}
                   asterik
                   placeholder="CVV"
                   isRequired
@@ -138,8 +131,8 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
                   onChangeText={(cvv) => setearCVV(cvv)}
                   customValidation={() => customValidacionCVV}
                 />
-                </View>
-              </Form>
+
+              </SafeAreaView>
             </View>
             <Text>{datosPersonales.apellido} {datosPersonales.nombre}</Text>
             <Text>{datosPersonales.dni}</Text>
@@ -153,10 +146,10 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
           </View>
 
       }
-      {/* 
+      
       <View style={styles.buttonConfirmar}>
-        <Button color={'#F2A30F'} title='Pagar' onPress={() => navigation.navigate('DireccionScreen')} ></Button>
-      </View> */}
+        <Button color={'#F2A30F'} title='Pagar' onPress={() => submit()} ></Button>
+      </View>
     </View>
 
   );
@@ -212,6 +205,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontWeight: 'bold',
     marginTop: 50,
+    textAlign: 'center',
   },
 
   buttonConfirmar: {

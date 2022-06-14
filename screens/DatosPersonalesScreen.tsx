@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { Alert, Button, ScrollView, StyleSheet } from 'react-native'
-import { RootStackParamList, RootStackScreenProps } from '../types';
-import { NavigationProp, RouteProp, useNavigation } from '@react-navigation/native';
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { RootStackParamList } from '../types';
+import { RouteProp, useNavigation } from '@react-navigation/native';
 import { Text, View, TextInput } from '../components/Themed';
 import { Form, FormItem } from 'react-native-form-component';
 import { DatosPersonalesContext } from '../contexts/datosPersonales';
@@ -22,7 +22,7 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
   const [customValidacionApellido, setValidacionApellido] = useState({ status: false, message: "Campo obligatorio" });
   const [customValidacionTelefono, setValidacionTelefono] = useState({ status: false, message: "Campo obligatorio" });
   const [customValidacionDNI, setValidacionDNI] = useState({ status: false, message: "Campo obligatorio" });
-  
+
   const datosPersonalesContext = useContext(DatosPersonalesContext);
 
   const agregarDatosPersonales = (datosPersonales: DatosPersonales) => {
@@ -35,7 +35,7 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
       setValidacionNombre(customValidationNombre);
       setNombre(name);
     }
-    else{
+    else {
       customValidationNombre.status = false;
       setValidacionNombre(customValidationNombre);
       setNombre(name);
@@ -48,7 +48,7 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
       setValidacionApellido(customValidacionApellido);
       setApellido(surname);
     }
-    else{
+    else {
       customValidacionApellido.status = false;
       setValidacionApellido(customValidacionApellido);
       setApellido(surname);
@@ -61,7 +61,7 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
       setValidacionTelefono(customValidacionTelefono);
       setTelefono(phone);
     }
-    else{
+    else {
       customValidacionTelefono.status = false;
       setValidacionTelefono(customValidacionTelefono);
       setTelefono(phone);
@@ -75,6 +75,8 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
       setDNI(documento);
     }
     else {
+      customValidacionDNI.status = false;
+      setValidacionDNI(customValidacionDNI);
       setDNI(documento);
     }
   }
@@ -82,8 +84,7 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
   const navigation = useNavigation();
 
   const submit = () => {
-    if(customValidationNombre.status == true && customValidacionApellido.status == true && customValidacionTelefono.status == true && customValidacionDNI.status == true)
-    {
+    if (customValidationNombre.status == true && customValidacionApellido.status == true && customValidacionTelefono.status == true && customValidacionDNI.status == true) {
       const datosPerso = new DatosPersonales();
       datosPerso.apellido = apellido;
       datosPerso.dni = dni;
@@ -91,73 +92,93 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
       agregarDatosPersonales(datosPerso);
       navigation.navigate("DatosTarjetaScreen");
     }
-    else
-    {
+    else {
       setTimeout(() => {
         Alert.alert(
-            "Debes llenar todos los campos",
-            "Por favor rellena todos los campos",
-            [
-                { text: "OK", onPress: () => console.log("OK Pressed") }
-            ],
-            {cancelable: true}
+          "Debes llenar todos los campos",
+          "Por favor rellena todos los campos",
+          [
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ],
+          { cancelable: true }
         )
-        
-    }, 1)
+
+      }, 1)
     }
   }
 
   return (
 
-    <View style={styles.container}>
+
+    // <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <Text style={styles.title}>Completa tus datos</Text>
       <Text style={styles.subtitulo}>
         Para proceder con la compra es necesario que completes esta informacion.
       </Text>
-      <Form onButtonPress={() => submit()} buttonText="Continuar" buttonStyle={styles.buttonConfirmar}>
+      <Form onButtonPress={() => submit()} buttonText="Continuar" buttonStyle={styles.buttonConfirmar} keyboardVerticalOffset={30}>
+        <ScrollView>
         <Text>Nombres</Text>
-        <FormItem
-          isRequired
-          value={nombre}
-          onChangeText={(nombre) => setearNombre(nombre)}
-          customValidation={() => customValidationNombre}
-          textInputStyle={styles.formItem}
-          placeholder="Nombres"
-          maxLength={40}
-          keyboardType="ascii-capable">
-        </FormItem>
-        <Text>Apellidos</Text>
-        <FormItem
-          isRequired
-          value={apellido}
-          onChangeText={(apellido) => setearApellido(apellido)}
-          customValidation={() => customValidacionApellido}
-          placeholder="Apellidos"
-          maxLength={40}
-          keyboardType="ascii-capable">
-        </FormItem>
-        <Text>Telefono</Text>
-        <FormItem
-          isRequired
-          value={telefono}
-          onChangeText={(telefono) => setearTelefono(telefono)}
-          customValidation={() => customValidacionApellido}
-          placeholder="Telefono"
-          maxLength={12}
-          keyboardType="numeric">
-        </FormItem>
-        <Text>Documento</Text>
-        <FormItem
-          isRequired
-          value={dni}
-          onChangeText={(dni) => setearDNI(dni)}
-          customValidation={() => customValidacionDNI}
-          placeholder="Documento"
-          maxLength={10}
-          keyboardType="numeric">
-        </FormItem>
+        <View>
+  
+
+            <FormItem
+              isRequired
+              value={nombre}
+              onChangeText={(nombre) => setearNombre(nombre)}
+              customValidation={() => customValidationNombre}
+              textInputStyle={styles.formItem}
+              placeholder="Nombres"
+              maxLength={40}
+              keyboardType="ascii-capable">
+            </FormItem>
+
+      
+          <Text>Apellidos</Text>
+          <FormItem
+            isRequired
+            value={apellido}
+            onChangeText={(apellido) => setearApellido(apellido)}
+            customValidation={() => customValidacionApellido}
+            placeholder="Apellidos"
+            maxLength={40}
+            keyboardType="ascii-capable">
+          </FormItem>
+          <Text>Telefono</Text>
+          <FormItem
+            isRequired
+            value={telefono}
+            onChangeText={(telefono) => setearTelefono(telefono)}
+            customValidation={() => customValidacionApellido}
+            placeholder="Telefono"
+            maxLength={12}
+            keyboardType="numeric">
+          </FormItem>
+          
+          <Text>Documento</Text>
+
+
+          <FormItem
+            isRequired
+            value={dni}
+            onChangeText={(dni) => setearDNI(dni)}
+            customValidation={() => customValidacionDNI}
+            placeholder="Documento"
+            maxLength={10}
+            keyboardType="numeric">
+          </FormItem>
+
+
+        </View>
+        </ScrollView>
       </Form>
-    </View>
+      
+      {/* </View> */}
+    </KeyboardAvoidingView>
+
 
 
   );
@@ -191,7 +212,12 @@ const styles = StyleSheet.create({
     borderBottomColor: '#cccccc',
     alignContent: 'space-between'
   },
-  formItem:{
+  formItem: {
     borderColor: 'black'
-  }
+  },
+  TextInputWrapper: {
+    flex: 1,
+    height: 40,
+    margin: 20
+}
 });
