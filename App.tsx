@@ -19,7 +19,7 @@ export default function App() {
   //cupones/ofertas del pedido
   const [ofertas, setOfertas] = useState<Oferta[]>([]);
   //datos personales
-  const [datos, setDatos] = useState<DatosPersonales[]>([]);
+  const [datosUsuario, setDatosUsuario] = useState<DatosPersonales>(new DatosPersonales);
 
   const agregarProducto = (producto: Producto, cantidad: number) => {
     producto.cantidad = cantidad;
@@ -54,7 +54,7 @@ export default function App() {
   }
 
   const agregarDatosPersonales = (datosPersonales: DatosPersonales) => {
-    setDatos([...datos, datosPersonales])
+    setDatosUsuario(datosPersonales)
   }
 
   if (!isLoadingComplete) {
@@ -63,7 +63,7 @@ export default function App() {
     return (
       <PedidoContext.Provider value={{ productos, agregarProducto, yaSeAgregoAlPedido, eliminarProducto, modificarProducto }}>
         <CuponContext.Provider value={{ ofertas, agregarCupon }}>
-          <DatosPersonalesContext.Provider value={{ agregarDatosPersonales }}>
+          <DatosPersonalesContext.Provider value={{ datosUsuario, agregarDatosPersonales }}>
             <SafeAreaProvider>
               <Navigation colorScheme={colorScheme} />
               <StatusBar />

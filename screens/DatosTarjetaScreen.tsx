@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Button, SafeAreaView } from 'react-native';
+import { StyleSheet, Button, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View, TextInput } from '../components/Themed';
@@ -7,8 +7,9 @@ import { PedidoContext } from '../contexts/pedidoContext';
 import { RootStackParamList } from '../types';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { Card } from 'react-native-paper';
-import { FormItem } from 'react-native-form-component';
+import { Form, FormItem } from 'react-native-form-component';
 import { TextField } from 'react-native-material-textfield';
+import { DatosPersonalesContext } from '../contexts/datosPersonales';
 
 
 type DatosTarjetaRouteProps = RouteProp<RootStackParamList, "DatosTarjetaScreen">
@@ -19,18 +20,25 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
   const pedidoContext = useContext(PedidoContext);
   const productos = pedidoContext.productos;
   const navigation = useNavigation();
+  const datosPersonalesContext = useContext(DatosPersonalesContext);
+  const datosPersonales = datosPersonalesContext.datosUsuario;
 
   const [name, setName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [expiration, setExpiration] = useState('');
   const [cvv, setCvv] = useState('');
-  const [customValidacionNumero, setValidacionNumero] = useState({status: false, message: "Campo obligatorio"});
-  const [customValidacionExpiracion, setValidacionExpiracion] = useState({status: false, message: "Campo obligatorio"});
-  const [customValidacionCVV, setValidacionCVV] = useState({status: false, message: "Campo obligatorio"});
+  const [customValidacionNumero, setValidacionNumero] = useState({ status: false, message: "Campo obligatorio" });
+  const [customValidacionExpiracion, setValidacionExpiracion] = useState({ status: false, message: "Campo obligatorio" });
+  const [customValidacionCVV, setValidacionCVV] = useState({ status: false, message: "Campo obligatorio" });
 
   const setearNumero = (cardNumber: string) => {
     if (cardNumber && cardNumber != '') {
       customValidacionNumero.status = true;
+      setValidacionNumero(customValidacionNumero);
+      setCardNumber(cardNumber);
+    }
+    else {
+      customValidacionNumero.status = false;
       setValidacionNumero(customValidacionNumero);
       setCardNumber(cardNumber);
     }
@@ -42,6 +50,11 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
       setValidacionExpiracion(customValidacionExpiracion);
       setExpiration(expiration);
     }
+    else {
+      customValidacionExpiracion.status = false;
+      setValidacionExpiracion(customValidacionExpiracion);
+      setExpiration(expiration);
+    }
   }
 
   const setearCVV = (cvv: string) => {
@@ -50,8 +63,33 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
       setValidacionCVV(customValidacionCVV);
       setCvv(cvv);
     }
+    else {
+      customValidacionCVV.status = false;
+      setValidacionCVV(customValidacionCVV);
+      setCvv(cvv);
+    }
   }
 
+  const submit = () => {
+    if(customValidacionNumero.status == true && customValidacionExpiracion.status == true && customValidacionCVV.status == true)
+    {
+      navigation.navigate("DireccionScreen");
+    }
+    else
+    {
+      setTimeout(() => {
+        Alert.alert(
+            "Debes llenar todos los campos",
+            "Por favor rellena todos los campos",
+            [
+                { text: "OK", onPress: () => console.log("OK Pressed") }
+            ],
+            {cancelable: true}
+        )
+        
+    }, 1)
+    }
+  }
 
   return (
 
@@ -63,6 +101,7 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
             <Text style={styles.subtitulo}>Método de pago</Text>
             <Text style={styles.pagoTarjeta}> <Ionicons name="card-outline" size={24} color="white" />Nueva tarjeta <AntDesign name="checkcircle" size={24} color={'#F2A30F'} /></Text>
             <View style={styles.containertarjeta}>
+            <Form onButtonPress={() => submit()} buttonText="Continuar" buttonStyle={styles.buttonConfirmar}>
                 <FormItem
                   asterik
                   placeholder="Numero de la tarjeta"
@@ -71,10 +110,9 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
                   maxLength={16}
                   onChangeText={(cardNumber) => setearNumero(cardNumber)}
                   customValidation={() => customValidacionNumero}
-
                 />
-            
-                <FormItem 
+
+                <FormItem
                   asterik
                   placeholder="MM/YY"
                   isRequired
@@ -83,7 +121,7 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
                   onChangeText={(expiration) => setearExpiracion(expiration)}
                   customValidation={() => customValidacionExpiracion}
                 />
-                
+
                 <FormItem
                   asterik
                   placeholder="CVV"
@@ -93,9 +131,12 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
                   onChangeText={(cvv) => setearCVV(cvv)}
                   customValidation={() => customValidacionCVV}
                 />
-                                </View>
+              </Form>
+            </View>
+            <Text>{datosPersonales.apellido} {datosPersonales.nombre}</Text>
+            <Text>{datosPersonales.dni}</Text>
 
-                </View>
+          </View>
 
           :
           <View>
@@ -104,10 +145,10 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
           </View>
 
       }
-
+      {/* 
       <View style={styles.buttonConfirmar}>
         <Button color={'#F2A30F'} title='Pagar' onPress={() => navigation.navigate('DireccionScreen')} ></Button>
-      </View>
+      </View> */}
     </View>
 
   );
@@ -117,13 +158,16 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 35,
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
-
+  formItem: {
+    borderBottomColor: 'black'
+  },
   containertarjeta: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     padding: 20,
     backgroundColor: '#ecf0f1',
   },
@@ -153,10 +197,7 @@ const styles = StyleSheet.create({
   },
 
   buttonConfirmar: {
-    right: 10,
-    left: 10,
-    position: 'absolute',
-    bottom: 10,
-  }
+    backgroundColor: '#F2A30F'
+  },
 
 });

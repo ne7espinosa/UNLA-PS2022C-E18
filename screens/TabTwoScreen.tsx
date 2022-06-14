@@ -18,10 +18,6 @@ export default function TabTwoScreen() {
   const eliminar = (idProducto: number) => {
     pedidoContext.eliminarProducto(idProducto);
   }
-
-  
-  
-
   //Funcion sumar cantidad
   const sumarCantidad = (producto: Producto) => {
     if (producto.cantidad < 5) {

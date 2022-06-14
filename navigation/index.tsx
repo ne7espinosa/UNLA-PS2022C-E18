@@ -59,7 +59,7 @@ function RootNavigator() {
       <Stack.Screen name="DireccionScreen" component={DireccionScreen} options={{ title: '' }} />
       <Stack.Screen name="PedidoFinalizadoScreen" component={PedidoFinalizadoScreen} options={{ title: '' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
-      <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -129,7 +129,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <Ionicons name="location-outline" size={25} color={color} />,
         }}
       />
-            <BottomTab.Screen
+      <BottomTab.Screen
         name="CuponesActivos"
         component={CuponesActivosScreen}
         options={{
