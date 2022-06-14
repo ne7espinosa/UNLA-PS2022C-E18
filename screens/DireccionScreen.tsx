@@ -17,11 +17,8 @@ export default function DireccionScreen() {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Seleccione un local:</Text>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    alwaysBounceVertical={false}
-                    contentContainerStyle={styles.scrollViewContainer}>
-                    <SelectDropdown
+            <View style={styles.container2}>
+            <SelectDropdown
                         data={Restaurantes}
                         defaultButtonText={'Search'}
                         onSelect={(selectedItem, index) => {
@@ -37,19 +34,25 @@ export default function DireccionScreen() {
                             // if data array is an array of objects then return item.property to represent item in dropdown
                             return item.nombre
                         }}
-                        search
-                        searchInputStyle={styles.dropdown3searchInputStyleStyle}
-                        searchPlaceHolder={'Search'}
-                        searchPlaceHolderColor={'#F8F8F8'}
-                        renderSearchInputLeftIcon={() => {
-                        return <FontAwesome name={'search'} color={'#FFF'} size={18} />;
-                }}
-                    />
-                    
-                            </ScrollView>
+                        
+                        buttonStyle={styles.dropdown1BtnStyle}
+                        buttonTextStyle={styles.dropdown1BtnTxtStyle}
+                        renderDropdownIcon={isOpened => {
+                        return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+                        }}
+                        dropdownIconPosition={'right'}
+                        dropdownStyle={styles.dropdown1DropdownStyle}
+                        rowStyle={styles.dropdown1RowStyle}
+                        rowTextStyle={styles.dropdown1RowTxtStyle}
+                        />
+                                    </View>
+
                 <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+                <View style={styles.buttonConfirmar}>
                 <Button color={'#F2A30F'} title='Continuar'  onPress={() => navigation.navigate('PedidoFinalizadoScreen')} ></Button>
             </View>
+            </View>
+
     );
 }
 
@@ -59,6 +62,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    container2: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 500,
+        fontWeight: 'bold',
+      },
     title: {
         flex: 1,
         fontSize: 20,
@@ -70,25 +80,28 @@ const styles = StyleSheet.create({
         height: 1,
         width: '80%',
     },
-    logo: {
-        marginTop: 20,
-        width: 200,
-        height: 200
+    dropdown1BtnStyle: {
+    width: '80%',
+    height: 50,
+    backgroundColor: '#FFF',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#444',
     },
-    restaurante: {
-        fontSize: 10,
-        marginTop: 10,
-    },
-    scrollViewContainer: {
-        flexGrow: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingVertical: '10%',
-        paddingBottom: '20%',
-      },
-      dropdown3searchInputStyleStyle: {
-        backgroundColor: 'slategray',
-        borderBottomWidth: 1,
-        borderBottomColor: '#FFF',
+    dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
+
+    dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
+
+    dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
+
+
+    dropdown1BtnTxtStyle: {color: '#444', textAlign: 'left'},
+
+    buttonConfirmar: {
+        right: 10,
+        left: 10,
+        position: 'absolute',
+        bottom: 10,
       }
+
 });
