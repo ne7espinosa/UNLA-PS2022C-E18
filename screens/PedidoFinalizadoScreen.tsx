@@ -30,7 +30,7 @@ export default function PedidoFinalizadoScreen(props: FinalizadoProps) {
         <View style={styles.container}>
             <Text style={styles.title}>Tu pedido fue finalizado con exito!</Text>
             <Image
-                style={{ width: 350, height: 350, marginBottom: 15 }}
+                style={{ width: 350, height: 350}}
                 source={{ uri: 'https://www.mcdonalds.pt/media/6768/left_pedidosmobile.png' }}
             />
             <Text style={styles.title}>Recuerde el costo de su comida</Text>

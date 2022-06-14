@@ -34,7 +34,10 @@ export default function DireccionScreen() {
                             // if data array is an array of objects then return item.property to represent item in dropdown
                             return item.nombre
                         }}
-                        
+                        search
+                        renderSearchInputRightIcon={() => {
+                            return <FontAwesome name={'search'} color={'#F2A30F'} size={18} />;
+                         }}
                         buttonStyle={styles.dropdown1BtnStyle}
                         buttonTextStyle={styles.dropdown1BtnTxtStyle}
                         renderDropdownIcon={isOpened => {
@@ -44,6 +47,7 @@ export default function DireccionScreen() {
                         dropdownStyle={styles.dropdown1DropdownStyle}
                         rowStyle={styles.dropdown1RowStyle}
                         rowTextStyle={styles.dropdown1RowTxtStyle}
+                        
                         />
                                     </View>
 
@@ -66,7 +70,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 500,
+        marginBottom: 400,
         fontWeight: 'bold',
       },
     title: {
