@@ -111,8 +111,14 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
                   onChangeText={(cardNumber) => setearNumero(cardNumber)}
                   customValidation={() => customValidacionNumero}
                 />
-
+                <View style={styles.row}>
                 <FormItem
+                  style={[
+                    styles.textField,
+                    {
+                      marginRight: 24,
+                    },
+                  ]}
                   asterik
                   placeholder="MM/YY"
                   isRequired
@@ -123,6 +129,7 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
                 />
 
                 <FormItem
+                  style={styles.textField}
                   asterik
                   placeholder="CVV"
                   isRequired
@@ -131,6 +138,7 @@ export default function DatosTarjetaScreen(props: DatosTarjetaProps) {
                   onChangeText={(cvv) => setearCVV(cvv)}
                   customValidation={() => customValidacionCVV}
                 />
+                </View>
               </Form>
             </View>
             <Text>{datosPersonales.apellido} {datosPersonales.nombre}</Text>
@@ -170,6 +178,16 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     padding: 20,
     backgroundColor: '#ecf0f1',
+  },
+  row: {
+    flexDirection: 'row',
+    marginBottom: 30,
+    backgroundColor: '#ecf0f1',
+
+  },
+  textField: {
+    flex: 1,
+    marginTop: 10,
   },
 
   title: {
