@@ -4,7 +4,7 @@ import { NavigationProp, RouteProp, useNavigation } from '@react-navigation/nati
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { PedidoContext } from '../contexts/pedidoContext';
-import { Producto,Productos } from '../modelos/Producto';
+import { Producto, Productos } from '../modelos/Producto';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { RootTabScreenProps } from '../types';
 
@@ -27,11 +27,11 @@ export default function TabTwoScreen() {
     }
   }
 
-  const restarCantidad = (producto: Producto ) => {
-    if(producto.cantidad > 1){
-    producto.cantidad = producto.cantidad - 1;
-    producto.precioTotal = producto.cantidad * producto.precio;
-    pedidoContext.modificarProducto(producto);
+  const restarCantidad = (producto: Producto) => {
+    if (producto.cantidad > 1) {
+      producto.cantidad = producto.cantidad - 1;
+      producto.precioTotal = producto.cantidad * producto.precio;
+      pedidoContext.modificarProducto(producto);
     } else {
       eliminar(producto.id)
     }
@@ -52,9 +52,9 @@ export default function TabTwoScreen() {
               <Text style={styles.nombre}>${item.precio}</Text>
               <View style={styles.botones}>
 
-              <AntDesign name="minus" size={20} color="grey" onPress={() => restarCantidad(item)} />
-              <Text style={styles.cantidad}>{item.cantidad}</Text>
-              <AntDesign name="plus" size={20} color="grey" onPress={() => sumarCantidad(item)} />
+                <AntDesign name="minus" size={20} color="grey" onPress={() => restarCantidad(item)} />
+                <Text style={styles.cantidad}>{item.cantidad}</Text>
+                <AntDesign name="plus" size={20} color="grey" onPress={() => sumarCantidad(item)} />
               </View>
             </View>
           }>
@@ -66,13 +66,14 @@ export default function TabTwoScreen() {
           </View>
 
       }
-      
+
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
 
       {
         pedidoContext.productos.length > 0 ?
           <View>
+            <Text style={styles.subTotal}>SubTotal: ${productos.reduce((sumar, item) => sumar + item.precioTotal, 0)} </Text>
             <Text style={styles.precioTotal}>Total: ${productos.reduce((sumar, item) => sumar + item.precioTotal, 0)} </Text>
             <View style={styles.botonesFinal}>
               <TouchableOpacity onPress={() => navigation.goBack()} style={styles.buttonContenedorSP}>
@@ -82,15 +83,15 @@ export default function TabTwoScreen() {
               </TouchableOpacity>
 
               <Button color={'#F2A30F'} title='Pagar con la App' onPress={() => navigation.navigate('PedidoScreen')}></Button>
-                       </View>
-       
+            </View>
+
           </View>
-     
+
           :
 
           <View></View>
 
-        }
+      }
     </View>
   );
 }
@@ -166,6 +167,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  subTotal:
+  {
+    textAlign: 'center'
   }
 
 });

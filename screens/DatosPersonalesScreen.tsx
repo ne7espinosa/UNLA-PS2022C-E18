@@ -122,8 +122,9 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
           onChangeText={(nombre) => setearNombre(nombre)}
           customValidation={() => customValidationNombre}
           textInputStyle={styles.formItem}
-          label="Nombres"
-          maxLength={40}>
+          placeholder="Nombres"
+          maxLength={40}
+          keyboardType="ascii-capable">
         </FormItem>
         <Text>Apellidos</Text>
         <FormItem
@@ -131,8 +132,9 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
           value={apellido}
           onChangeText={(apellido) => setearApellido(apellido)}
           customValidation={() => customValidacionApellido}
-          label="Apellidos"
-          maxLength={40}>
+          placeholder="Apellidos"
+          maxLength={40}
+          keyboardType="ascii-capable">
         </FormItem>
         <Text>Telefono</Text>
         <FormItem
@@ -140,8 +142,9 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
           value={telefono}
           onChangeText={(telefono) => setearTelefono(telefono)}
           customValidation={() => customValidacionApellido}
-          label="Telefono"
-          maxLength={12}>
+          placeholder="Telefono"
+          maxLength={12}
+          keyboardType="numeric">
         </FormItem>
         <Text>Documento</Text>
         <FormItem
@@ -149,8 +152,9 @@ export default function DatosPersonalescreen(props: DatosPersonalesProps) {
           value={dni}
           onChangeText={(dni) => setearDNI(dni)}
           customValidation={() => customValidacionDNI}
-          label="Documento"
-          maxLength={10}>
+          placeholder="Documento"
+          maxLength={10}
+          keyboardType="numeric">
         </FormItem>
       </Form>
     </View>

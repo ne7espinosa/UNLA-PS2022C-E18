@@ -9,4 +9,5 @@ export const PedidoContext = createContext({
     },
     eliminarProducto: (_idProducto: number) => {},
     modificarProducto: (_producto: Producto) => {},
+    limpiarPedido: () => {}
 });

@@ -5,6 +5,7 @@ import React, { useContext } from 'react';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { PedidoContext } from '../contexts/pedidoContext';
 import { black } from 'react-native-paper/lib/typescript/styles/colors';
+import TabOneScreen from './TabOneScreen';
 
 
 type FinalizadoRouteProps = RouteProp<RootStackParamList, "PedidoFinalizadoScreen">
@@ -12,6 +13,7 @@ type FinalizadoProps = { route: FinalizadoRouteProps }
 export default function PedidoFinalizadoScreen(props: FinalizadoProps) {
 
     const pedidoContext = useContext(PedidoContext);
+
     const productos = pedidoContext.productos;
     const navigation = useNavigation();
 
@@ -26,6 +28,11 @@ export default function PedidoFinalizadoScreen(props: FinalizadoProps) {
         return result;
     }
 
+    const finalizar = () => {
+        pedidoContext.limpiarPedido();
+        navigation.navigate('Root');
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Tu pedido fue finalizado con exito!</Text>
@@ -36,9 +43,9 @@ export default function PedidoFinalizadoScreen(props: FinalizadoProps) {
             <Text style={styles.title}>Recuerde el costo de su comida</Text>
             <Text style={styles.title}>Total: ${productos.reduce((sumar, item) => sumar + item.precioTotal, 0)} </Text>
             <Text>Código de retiro: {makeid(8)}. No olvides de anotarlo!</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Root")} style={styles.buttonContenedorSP}>
+            <TouchableOpacity onPress={() => finalizar()} style={styles.buttonContenedorSP}>
               <View style={styles.buttonSeguirPidiendo}>
-                <Text style={styles.buttonSeguirPidiendoText}>Seguir Pidiendo</Text>
+                <Text style={styles.buttonSeguirPidiendoText}>Volver al inicio</Text>
               </View>
             </TouchableOpacity>
             <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
@@ -77,7 +84,7 @@ const styles = StyleSheet.create({
 
     },
     buttonSeguirPidiendo: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#F2A30F',
         width: 135,
         height: 35,
     },
