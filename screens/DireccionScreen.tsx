@@ -23,7 +23,7 @@ export default function DireccionScreen() {
                     defaultButtonText={'Buscar locales'}
                     // searchInputStyle={styles.buscador}
                     onSelect={(selectedItem, index) => {
-                        console.log(selectedItem, index)
+                        // console.log(selectedItem, index)
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                         // text represented after item is selected

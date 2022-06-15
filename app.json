@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -26,7 +26,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.sofiasa_023.UNLAPS2022CE18"
+      "package": "com.ne7espinosa.UNLAPS2022CE18",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
